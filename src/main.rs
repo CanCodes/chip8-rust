@@ -8,6 +8,7 @@ mod ram;
 use cpu::Cpu;
 use display::{SCREEN_HEIGHT, SCREEN_WIDTH};
 use minifb::{Key, KeyRepeat, Window, WindowOptions};
+use std::env;
 use std::fs::File;
 use std::io::Read;
 use std::time::{Duration, Instant};
@@ -38,7 +39,13 @@ fn translate_keycode(key: Option<Key>) -> Option<u8> {
 }
 
 fn main() {
-  let mut file = File::open("c8games/KALEID").unwrap();
+  let args: Vec<String> = env::args().collect();
+  let file_name = match args.len() {
+    0 | 1 => "TETRIS",
+    _ => args.get(1).unwrap(),
+  };
+
+  let mut file = File::open(format!("c8games/{}", file_name)).unwrap();
   let mut data: Vec<u8> = vec![];
   file.read_to_end(&mut data).unwrap();
   let mut cpu = Cpu::new();
