@@ -30,15 +30,13 @@ impl Display {
       let prev_value = self.screen[index];
       self.screen[index] ^= bit;
 
-      erased = if prev_value == 1 && self.screen[index] == 0 {
-        true
-      } else {
-        false
-      };
+      if prev_value == 1 && self.screen[index] == 0 {
+        erased = true;
+      }
       coord_x += 1;
       b <<= 1;
     }
-    erased
+    return erased;
   }
 
   pub fn clear(&mut self) {
