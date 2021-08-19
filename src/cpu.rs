@@ -140,7 +140,7 @@ impl Cpu {
             self.vx[0xF as usize] = (vx & 0x80) >> 7;
           }
           _ => {
-            panic!("WTF IS THIS {:#X}", inst)
+            panic!("Don't know what to do with this instruction: {:#X}", inst)
           }
         }
         self.pc += 2;
@@ -186,7 +186,7 @@ impl Cpu {
             2
           }
         }
-        _ => panic!("IDK WHAT IS THIS {:#X}", inst),
+        _ => panic!("Don't know what to do with this instruction: {:#X}", inst),
       },
       0xF => match nn {
         0x1E => {
@@ -239,9 +239,9 @@ impl Cpu {
           self.i += x as u16 + 1;
           self.pc += 2;
         }
-        _ => panic!("IDK WHAT IS THIS {:#X}", inst),
+        _ => panic!("Don't know what to do with this instruction: {:#X}", inst),
       },
-      _ => panic!("IDK WHAT IS THIS {:#X}", inst),
+      _ => panic!("Don't know what to do with this instruction: {:#X}", inst),
     }
   }
 
